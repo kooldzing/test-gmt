@@ -1,0 +1,7 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,98247,e=>{"use strict";var t=e.i(43476),c=e.i(71645),r=e.i(22016),a=e.i(68702);e.s(["default",0,function({error:e,retry:s,reset:n}){let i=(0,a.useT)();return(0,c.useEffect)(()=>{console.error(e)},[e]),(0,t.jsxs)("main",{className:"wrap ce-main",children:[(0,t.jsxs)("section",{className:"card ce-card",role:"alert",children:[(0,t.jsx)("h1",{className:"ce-title",children:i("errors.screenTitle")}),(0,t.jsx)("p",{className:"ce-text",children:i("errors.screenText")}),(0,t.jsxs)("div",{className:"ce-actions",children:[(0,t.jsx)("button",{type:"button",className:"btn btn-dark",onClick:()=>(s??n)?.(),children:i("errors.retry")}),(0,t.jsx)(r.default,{href:"/dashboard",className:"btn btn-tonal",children:i("common.goToDashboard")})]})]}),(0,t.jsx)("style",{children:`
+        .ce-main { max-width: 1120px; padding-top: 40px; padding-bottom: 60px; }
+        .ce-card { padding: 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+        .ce-title { font-size: 22px; font-weight: 700; color: var(--text); }
+        .ce-text { max-width: 520px; font-size: 14.5px; line-height: 1.55; color: var(--text-3); }
+        .ce-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+      `})]})}])}]);

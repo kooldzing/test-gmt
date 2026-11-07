@@ -1,0 +1,7 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,58298,e=>{"use strict";var t=e.i(43476),r=e.i(71645),s=e.i(22016),i=e.i(68702);e.s(["default",0,function({error:e,retry:a,reset:l}){let n=(0,i.useT)();return(0,r.useEffect)(()=>{console.error(e)},[e]),(0,t.jsxs)("main",{className:"eb-page",children:[(0,t.jsxs)("div",{className:"eb-box",role:"alert",children:[(0,t.jsx)("h1",{className:"eb-title",children:n("errors.pageTitle")}),(0,t.jsx)("p",{className:"eb-text",children:n("errors.pageText")}),(0,t.jsxs)("div",{className:"eb-actions",children:[(0,t.jsx)("button",{type:"button",className:"btn btn-dark",onClick:()=>(a??l)?.(),children:n("errors.retry")}),(0,t.jsx)(s.default,{href:"/",className:"btn btn-tonal",children:n("nf.home")})]})]}),(0,t.jsx)("style",{children:`
+        .eb-page { min-height: 70vh; display: grid; place-items: center; padding: 48px 20px; background: var(--surface-1); }
+        .eb-box { max-width: 520px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+        .eb-title { font-size: 24px; font-weight: 700; color: var(--text); }
+        .eb-text { font-size: 15px; line-height: 1.55; color: var(--text-3); }
+        .eb-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+      `})]})}])}]);

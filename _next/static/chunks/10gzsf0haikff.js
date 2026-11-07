@@ -1,0 +1,139 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,79413,e=>{"use strict";var r=e.i(43476),t=e.i(71645),a=e.i(22016),n=e.i(30200),i=e.i(51346),s=e.i(94616),d=e.i(88840),o=e.i(99686),l=e.i(71519),c=e.i(9165),p=e.i(35007),u=e.i(84496),m=e.i(68702);let x="1-9A-HJ-NP-Za-km-z",f=/^0x[0-9a-fA-F]{40}$/,w=RegExp(`^T[${x}]{33}$`),h=["ERC20","ETH","ETHEREUM","BEP20","BSC","BNB","BNB CHAIN","POLYGON"],g={...Object.fromEntries(h.map(e=>[e,f])),TRC20:w,TRON:w,BITCOIN:RegExp(`^(bc1[02-9ac-hj-np-z]{11,71}|BC1[02-9AC-HJ-NP-Z]{11,71}|[13][${x}]{25,34})$`),SOLANA:RegExp(`^[${x}]{32,44}$`),LITECOIN:RegExp(`^(ltc1[02-9ac-hj-np-z]{11,71}|[LM3][${x}]{26,33})$`),DOGECOIN:RegExp(`^[DA9][${x}]{25,34}$`),RIPPLE:RegExp(`^r[${x}]{24,34}$`),TON:/^([EUk0]Q[A-Za-z0-9_-]{46}|-?\d:[0-9a-fA-F]{64})$/,CARDANO:RegExp(`^(addr1[02-9ac-hj-np-z]{50,110}|(Ae2|DdzFF)[${x}]{50,120})$`)};g.DOGE=g.DOGECOIN,g.ADA=g.CARDANO;var b=e.i(60436),v=e.i(50731),j=e.i(68949),y=e.i(89125);let N={BTC:["Bitcoin"],USDT:["ERC20","TRC20"],ETH:["ERC20"],SOL:["Solana"],BNB:["BEP20"],XRP:["Ripple"],LTC:["Litecoin"],TRX:["TRC20"],DOGE:["Dogecoin"],TON:["TON"]},k=Object.keys(N),E={Bitcoin:"BTC",ERC20:"ETH",TRC20:"TRX",BEP20:"BNB",Solana:"SOL",Ripple:"XRP",Litecoin:"LTC",Dogecoin:"DOGE",TON:"TON"},C=e=>`$${e.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}`,R={REQUESTED:"Requested",PROCESSING:"Processing",PENDING:"In review",SENT:"Sent",APPROVED:"Sent",REJECTED:"Declined"},z={REQUESTED:"review",PROCESSING:"review",PENDING:"review",SENT:"completed",APPROVED:"completed",REJECTED:"rejected"};e.s(["default",0,function(){let e=(0,m.useT)(),{account:x,ready:f}=(0,o.useAccount)(),T=(0,l.useLive)(),S=T.balance,[D,A]=(0,t.useState)([]),[O,I]=(0,t.useState)("loading"),[$,P]=(0,t.useState)(!1),L=T.session?.status==="ACTIVE",B=D.some(e=>["REQUESTED","PROCESSING","PENDING"].includes(e.status));function F(){c.api.withdrawals().then(e=>{A(e),I("ok")}).catch(()=>I(e=>"ok"===e?"ok":"error"))}(0,t.useEffect)(()=>{let e=()=>{F(),c.api.userInfo().then(e=>P(e.totp_enabled)).catch(()=>{})};e();let r=setInterval(e,15e3);return()=>clearInterval(r)},[]);let[_,G]=(0,t.useState)("USDT"),[H,U]=(0,t.useState)("ERC20"),[M,W]=(0,t.useState)(""),[K,q]=(0,t.useState)(""),[J,Q]=(0,t.useState)({}),[V,X]=(0,t.useState)(!1),[Y,Z]=(0,t.useState)(""),[ee,er]=(0,t.useState)(),[et,ea]=(0,t.useState)(!1),[en,ei]=(0,t.useState)(!1);(0,p.useBodyScrollLock)(V);let es=(0,t.useRef)(null),ed=(0,t.useRef)(null),eo=(0,t.useRef)(null),el=(0,t.useRef)(null);(0,b.useDialogFocus)(V,eo,{focusRef:el,onEscape:()=>X(!1)});let ec=(0,t.useRef)(null);async function ep(r){try{await c.api.withdraw({amount:(0,j.parseAmount)(K)??0,coin:_,network:H,address:M.trim(),...r?{code:r}:{}}),X(!1),Z(""),ei(!0),(0,d.toast)("Withdrawal requested — we'll review it shortly"),F(),(0,l.refreshLive)()}catch(i){let r=i instanceof c.ApiError?i.code:"network",t=(e,r)=>{let t="address"===e?es.current:ed.current;Q("address"===e?{address:r}:{amount:r}),V?(ec.current=t,X(!1)):t?.focus()};if("invalid address"===r)return t("address",e("errors.addrRejected",{network:H}));if("invalid amount or address"===r)return t("address",e("errors.amountOrAddress"));if("invalid amount"===r)return t("amount",e("errors.amountRejected"));if("min_withdrawal"===r){let r=i instanceof c.ApiError?Number(i.data.min):NaN;return t("amount",e("errors.minWithdrawal",{min:`$${Number.isFinite(r)&&r>0?r:10}`}))}if("insufficient balance"===r||"insufficient_funds"===r)return t("amount",e("wd.errBalance"));if("pending_exists"===r)return t("amount",e("wd.pendingExists"));if("active_session"===r)return t("amount",e("wd.sessionRunning"));if("2fa_required"===r)return t("amount",e("wd.twoFaOff"));let a=(0,v.codeErrorText)(i,e);if(V&&a)return void er(a);let n=a??(i instanceof c.ApiError&&!(0,v.isNetwork)(i)?i.message:e("errors.network"));X(!1),Q({amount:n})}}async function eu(){et||(ea(!0),er(void 0),await ep(Y.replace(/\s/g,"")),ea(!1))}return(0,t.useEffect)(()=>{!V&&ec.current&&(ec.current.focus(),ec.current=null)},[V]),f?(0,r.jsxs)("div",{className:"wd",children:[(0,r.jsxs)("main",{className:"wd-main wrap",children:[(0,r.jsxs)("header",{className:"wd-header",children:[(0,r.jsx)("h1",{className:"h2",children:e("wd.title")}),(0,r.jsx)("p",{className:"lead",children:e("wd.lead")})]}),(0,r.jsxs)("div",{className:"wd-grid",children:[(0,r.jsx)("section",{className:"card wd-panel",children:en?(0,r.jsxs)("div",{className:"wd-success",children:[(0,r.jsx)("span",{className:"wd-success-ic",children:(0,r.jsx)(n.Icon,{name:"check_circle",size:40,fill:1})}),(0,r.jsx)("h2",{children:e("wd.submitted")}),(0,r.jsx)("p",{children:e("wd.submittedSub",{amount:C((0,j.parseAmount)(K)??0),coin:_})}),(0,r.jsx)("button",{className:"btn btn-dark",onClick:()=>{ei(!1),W(""),q("")},children:"New withdrawal"})]}):(0,r.jsxs)(r.Fragment,{children:[(0,r.jsxs)("div",{className:"wd-avail",children:[(0,r.jsx)("span",{className:"wd-avail-k",children:e("wd.available")}),(0,r.jsx)("span",{className:"wd-avail-v tnum",children:C(S)})]}),(0,r.jsxs)("div",{className:"wd-two",children:[(0,r.jsx)(i.Dropdown,{label:e("wd.coin"),value:_,options:k,onChange:function(e){G(e),U(N[e][0])},renderIcon:e=>(0,r.jsx)(s.CoinIcon,{sym:e,size:20})}),(0,r.jsx)(i.Dropdown,{label:e("wd.network"),value:H,options:N[_],onChange:U,renderIcon:e=>(0,r.jsx)(s.CoinIcon,{sym:E[e]??e,size:20})})]}),(0,r.jsxs)("div",{className:`wd-field ${J.address?"err":""}`,children:[(0,r.jsx)("span",{children:e("wd.address")}),(0,r.jsx)("input",{ref:es,"aria-label":e("wd.address"),"aria-invalid":!!J.address,"aria-describedby":J.address?"wd-address-err":void 0,autoComplete:"off",spellCheck:!1,value:M,placeholder:e("wd.addressPlaceholder"),onChange:e=>{W(e.target.value),J.address&&Q(e=>({...e,address:void 0}))}}),J.address&&(0,r.jsx)("small",{className:"wd-fielderr",id:"wd-address-err",role:"alert",children:J.address})]}),(0,r.jsxs)("div",{className:`wd-field ${J.amount?"err":""}`,children:[(0,r.jsx)("span",{children:e("wd.amount")}),(0,r.jsxs)("div",{className:"wd-amount",children:[(0,r.jsx)("input",{ref:ed,"aria-invalid":!!J.amount,"aria-describedby":J.amount?"wd-amount-err":void 0,"aria-label":e("wd.amount"),type:"text",inputMode:"decimal",value:K,placeholder:"0.00",onChange:e=>{q((0,j.sanitizeAmountInput)(e.target.value)),J.amount&&Q(e=>({...e,amount:void 0}))}}),(0,r.jsx)("button",{type:"button",className:"wd-max",onClick:()=>q(String(S)),children:e("wd.max")})]}),J.amount&&(0,r.jsx)("small",{className:"wd-fielderr",id:"wd-amount-err",role:"alert",children:J.amount})]}),(0,r.jsxs)("div",{className:"wd-note",children:[(0,r.jsx)(n.Icon,{name:$?"shield_lock":"info",size:16}),$?e("wd.twoFaOn"):e("wd.twoFaOff")]}),L&&(0,r.jsxs)("div",{className:"wd-block",children:[(0,r.jsx)(n.Icon,{name:"info",size:16}),e("wd.sessionRunning")]}),!L&&B&&(0,r.jsxs)("div",{className:"wd-block",children:[(0,r.jsx)(n.Icon,{name:"info",size:16}),e("wd.pendingExists")]}),(0,r.jsxs)("button",{className:"btn btn-dark wd-submit",onClick:function(){let r,t;if(L)return void Q({amount:"Wait for the running session to finish before withdrawing."});if(r={},t=(0,j.parseAmount)(K),r.address=function(e,r,t){switch(function(e,r){let t=e.trim();if(!t)return"empty";let a=r.trim().toUpperCase().replace(/-/g,"");if(/\s/.test(t))return"space";if(t.startsWith("0x")&&!h.includes(a))return"evm";if(w.test(t)&&"TRC20"!==a&&"TRON"!==a)return"tron";let n=g[a];return n?n.test(t)?null:"shape":t.length<12?"shape":null}(e,r)){case"empty":return t("wd.errAddress");case"space":return t("errors.addrSpace");case"evm":return t("errors.addrEvm",{network:r});case"tron":return t("errors.addrTron",{network:r});case"shape":return t("errors.addrShape",{network:r});default:return}}(M,H,e),r.address||delete r.address,null===t||t<=0?r.amount=e("wd.errAmount"):t<10?r.amount=e("errors.minWithdrawal",{min:"$10"}):t>S&&(r.amount=e("wd.errBalance")),Q(r),r.address?es.current?.focus():r.amount&&ed.current?.focus(),0===Object.keys(r).length){if($)return void X(!0);ep()}},disabled:L||B||!$,children:[e("wd.submit")," ",null!==(0,j.parseAmount)(K)?C((0,j.parseAmount)(K)):""]})]})}),(0,r.jsxs)("section",{className:"card wd-panel wd-history",children:[(0,r.jsxs)("div",{className:"wd-panel-head",children:[(0,r.jsx)(n.Icon,{name:"bolt",size:20}),(0,r.jsx)("h2",{children:e("wd.howTitle")})]}),(0,r.jsxs)("ol",{className:"wd-steps",children:[(0,r.jsxs)("li",{children:[(0,r.jsx)("b",{children:e("wd.step1T")}),(0,r.jsx)("span",{children:e("wd.step1S")})]}),(0,r.jsxs)("li",{children:[(0,r.jsx)("b",{children:e("wd.step2T")}),(0,r.jsx)("span",{children:e("wd.step2S")})]}),(0,r.jsxs)("li",{children:[(0,r.jsx)("b",{children:e("wd.step3T")}),(0,r.jsx)("span",{children:e("wd.step3S")})]})]}),(0,r.jsxs)("div",{className:"wd-panel-head wd-recent-head",children:[(0,r.jsx)(n.Icon,{name:"history",size:20}),(0,r.jsx)("h2",{children:e("wd.historyTitle")}),(0,r.jsxs)(a.default,{href:"/history",className:"wd-viewall",children:["View all ",(0,r.jsx)(n.Icon,{name:"chevron_right",size:15})]})]}),"loading"===O&&0===D.length?(0,r.jsx)("div",{className:"wd-empty",children:e("common.loading")}):"error"===O&&0===D.length?(0,r.jsx)(y.LoadError,{text:"errors.loadWithdrawals",onRetry:F}):0===D.length?(0,r.jsx)("div",{className:"wd-empty",children:e("wd.empty")}):(0,r.jsx)("div",{className:"wd-list",children:D.slice(0,3).map(e=>{let t;return(0,r.jsxs)("div",{className:"wd-item",children:[(0,r.jsx)("span",{className:"wd-item-ic",children:(0,r.jsx)(s.CoinIcon,{sym:e.coin,size:30})}),(0,r.jsxs)("div",{className:"wd-item-body",children:[(0,r.jsxs)("div",{className:"wd-item-top",children:[(0,r.jsx)("span",{className:"wd-item-amt tnum",children:C(e.amount)}),(0,r.jsx)("span",{className:`wd-badge ${z[e.status]??"review"}`,children:R[e.status]??e.status})]}),(0,r.jsxs)("div",{className:"wd-item-sub",children:[e.coin," · ",e.network," · ",(t=e.address).length>16?`${t.slice(0,7)}…${t.slice(-5)}`:t]}),"REJECTED"===e.status&&e.reject_reason&&(0,r.jsx)("div",{className:"wd-item-reason",children:e.reject_reason}),(0,r.jsx)("div",{className:"wd-item-when",children:(0,u.relTime)(Date.parse(e.created_at))})]})]},e.id)})})]})]})]}),V&&(0,r.jsx)("div",{className:"wd-overlay",onClick:()=>X(!1),children:(0,r.jsxs)("div",{ref:eo,className:"card wd-modal",onClick:e=>e.stopPropagation(),role:"dialog","aria-modal":"true","aria-labelledby":"wd-gate-title",children:[(0,r.jsx)("span",{className:"wd-modal-ic",children:(0,r.jsx)(n.Icon,{name:"shield_lock",size:26,fill:1})}),(0,r.jsx)("h3",{id:"wd-gate-title",children:e("wd.gateTitle")}),(0,r.jsx)("p",{children:e("wd.gateSub")}),(0,r.jsxs)("div",{className:"wd-confirm",children:[(0,r.jsx)("b",{className:"tnum",children:C((0,j.parseAmount)(K)??0)}),(0,r.jsxs)("span",{children:[_," · ",H]}),(0,r.jsx)("span",{className:"wd-confirm-addr",children:M.trim()})]}),(0,r.jsx)("input",{ref:el,className:`wd-code ${ee?"err":""}`,value:Y,inputMode:"numeric","aria-label":e("wd.gateSub"),"aria-invalid":!!ee,"aria-describedby":ee?"wd-code-err":void 0,maxLength:6,placeholder:"••••••",onChange:e=>{Z(e.target.value.replace(/\D/g,"").slice(0,6)),ee&&er(void 0)},onKeyDown:e=>{"Enter"===e.key&&eu()}}),ee&&(0,r.jsx)("small",{className:"wd-codeerr",id:"wd-code-err",role:"alert",children:ee}),(0,r.jsxs)("div",{className:"wd-modal-actions",children:[(0,r.jsx)("button",{className:"btn btn-ghost",onClick:()=>X(!1),children:e("common.cancel")}),(0,r.jsx)("button",{className:"btn btn-dark",onClick:()=>void eu(),disabled:et,children:e("wd.gateConfirm")})]}),(0,r.jsx)(a.default,{href:"/settings",className:"wd-modal-help",children:e("wd.gateHelp")})]})}),(0,r.jsx)("style",{children:`
+        .wd-main { max-width: 940px; padding-top: 40px; padding-bottom: 60px; display: flex; flex-direction: column; gap: 20px; }
+        .wd-header .lead { margin-top: 8px; }
+        .wd-header .h2 { font-size: clamp(30px, 4vw, 40px); }
+        .wd-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 18px; align-items: start; }
+        .wd-panel { padding: 24px 26px; }
+        .wd-panel-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+        .wd-panel-head .material-symbols-rounded { color: var(--blue); }
+        .wd-panel-head h2 { font-size: 17px; font-weight: 700; }
+
+        .wd-avail { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-radius: 16px; background: var(--blue-soft); margin-bottom: 20px; }
+        .wd-avail-k { font-size: 13px; font-weight: 600; color: var(--blue-strong); }
+        .wd-avail-v { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+        .wd-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+
+        .wd-field { display: block; margin-bottom: 16px; }
+        .wd-field span { display: block; font-size: 13px; font-weight: 600; color: var(--text-2); margin-bottom: 7px; }
+        .wd-field input { width: 100%; padding: 13px 15px; border-radius: var(--radius-input); border: 1px solid var(--line); background: var(--surface-1); font-size: 15px; color: var(--text); outline: none; transition: border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease); }
+        .wd-field input:hover { border-color: #c4c7c5; }
+        .wd-field input:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px var(--blue-soft); }
+        .wd-field.err input { border-color: var(--red); background: #fff; }
+        .wd-amount { position: relative; display: flex; align-items: center; }
+        .wd-amount input { padding-right: 64px; }
+        .wd-max { position: absolute; right: 8px; font-size: 12px; font-weight: 700; color: var(--blue); background: var(--blue-soft); border: none; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+        .wd-fielderr { display: block; margin-top: 4px; padding-left: 8px; font-size: 12px; font-weight: 500; color: var(--red); }
+
+        .wd-note { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-3); background: var(--surface-1); border: 1px solid var(--line-soft); border-radius: 12px; padding: 11px 14px; margin-bottom: 18px; }
+        .wd-note .material-symbols-rounded { color: var(--text-3); flex-shrink: 0; }
+        .wd-submit { width: 100%; }
+        .wd-submit:disabled { opacity: .5; cursor: default; }
+        .wd-block { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #b06000; background: #fef7e0; border-radius: 12px; padding: 10px 12px; margin-bottom: 12px; }
+
+        .wd-success { text-align: center; padding: 20px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .wd-success-ic { color: var(--green); }
+        .wd-success h2 { font-size: 20px; font-weight: 700; }
+        .wd-success p { font-size: 14px; color: var(--text-3); max-width: 320px; margin-bottom: 8px; }
+
+        .wd-steps { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; counter-reset: wd; }
+        .wd-steps li { position: relative; padding-left: 38px; }
+        .wd-steps li::before { counter-increment: wd; content: counter(wd); position: absolute; left: 0; top: 0; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--blue-soft); color: var(--blue-strong); font-size: 13px; font-weight: 700; }
+        .wd-steps b { display: block; font-size: 14px; font-weight: 600; color: var(--text); }
+        .wd-steps span { display: block; font-size: 12.5px; color: var(--text-3); margin-top: 2px; line-height: 1.5; }
+        .wd-recent-head { padding-top: 20px; border-top: 1px solid var(--line-soft); }
+        .wd-viewall { display: inline-flex; align-items: center; gap: 1px; margin-left: auto; font-size: 12.5px; font-weight: 600; color: var(--blue); white-space: nowrap; }
+        .wd-viewall .material-symbols-rounded { color: var(--blue); }
+        .wd-viewall:hover { text-decoration: underline; }
+
+        .wd-list { display: flex; flex-direction: column; }
+        .wd-item { display: flex; gap: 12px; padding: 14px 0; border-top: 1px solid var(--line-soft); }
+        .wd-item:first-child { border-top: none; padding-top: 0; }
+        .wd-item-ic { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--surface-2); color: var(--text-2); flex-shrink: 0; }
+        .wd-item-body { flex: 1; min-width: 0; }
+        .wd-item-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .wd-item-amt { font-size: 15px; font-weight: 700; color: var(--text); }
+        .wd-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+        .wd-badge.completed { color: var(--green); background: #e6f4ea; }
+        .wd-badge.processing { color: var(--blue-strong); background: var(--blue-soft); }
+        .wd-badge.review { color: #b06000; background: #fef7e0; }
+        .wd-item-sub { font-size: 12.5px; color: var(--text-3); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .wd-badge.rejected { color: #b3261e; background: #fce8e6; }
+        .wd-item-reason { font-size: 12px; color: #b3261e; margin-top: 3px; }
+        .wd-item-when { font-size: 11.5px; color: var(--text-3); margin-top: 2px; }
+        .wd-empty { font-size: 14px; color: var(--text-3); padding: 20px 0; text-align: center; }
+
+        .wd-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(32,33,36,0.44); backdrop-filter: blur(3px); display: grid; place-items: center; padding: 20px; animation: wd-fade .18s var(--ease); }
+        @keyframes wd-fade { from { opacity: 0; } to { opacity: 1; } }
+        /* Height-capped and scrollable: at 380px tall with nothing bounding it, the
+           dialog ran past the bottom of a short window and took Cancel/Confirm with
+           it, while the body behind was locked from scrolling. */
+        .wd-modal { max-width: 380px; width: 100%; max-height: calc(100dvh - 40px); overflow-y: auto; overscroll-behavior: contain; padding: 28px; text-align: center; display: flex; flex-direction: column; align-items: center; animation: wd-pop .2s var(--ease); }
+        @keyframes wd-pop { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+        .wd-modal-ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--blue-soft); color: var(--blue); margin-bottom: 12px; }
+        .wd-modal h3 { font-size: 19px; font-weight: 700; }
+        .wd-modal p { font-size: 13.5px; color: var(--text-3); margin: 6px 0 18px; }
+        .wd-confirm { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%; margin: 0 0 16px; padding: 12px 14px; border-radius: 14px; background: var(--surface-2); }
+        .wd-confirm b { font-size: 20px; font-weight: 700; color: var(--text); }
+        .wd-confirm span { font-size: 12.5px; color: var(--text-3); }
+        /* ⚠️ THE WHOLE ADDRESS, WRAPPED (F10, 27.09.2026). The ellipsis cut it in the
+           middle: a swapped address with the same start and end is the classic
+           clipboard attack, and a truncated one cannot be checked against it. */
+        .wd-confirm-addr { max-width: 100%; overflow-wrap: anywhere; word-break: break-all; font-family: var(--font-mono); font-size: 11.5px; }
+        .wd-code { width: 200px; text-align: center; font-size: 26px; font-weight: 700; letter-spacing: 0.3em; padding: 12px; border-radius: var(--radius-input); border: 1px solid var(--line); background: var(--surface-1); color: var(--text); outline: none; font-variant-numeric: tabular-nums; }
+        .wd-code:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px var(--blue-soft); }
+        .wd-code.err { border-color: var(--red); }
+        .wd-codeerr { display: block; margin-top: 4px; padding-left: 8px; font-size: 12px; color: var(--red); }
+        /* Pinned to the bottom of the scrolling dialog: on a short window the code
+           field alone fills the box, and Cancel/Confirm would sit below the fold. */
+        .wd-modal-actions { display: flex; gap: 10px; margin-top: 20px; width: 100%; position: sticky; bottom: -28px; background: var(--surface-1, #fff); padding: 8px 0 0; }
+        .wd-modal-actions .btn { flex: 1; }
+        .wd-modal-help { font-size: 12.5px; color: var(--blue); margin-top: 14px; }
+
+        @media (max-width: 820px) { .wd-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 460px) { .wd-two { grid-template-columns: 1fr; } }
+      `})]}):(0,r.jsx)(y.PagePending,{})}],79413)},51346,68949,e=>{"use strict";var r=e.i(43476),t=e.i(71645),a=e.i(30200);function n(e){let r=Number(e);return Number.isFinite(r)?r:null}e.s(["Dropdown",0,function({label:e,value:n,options:i,onChange:s,error:d,renderIcon:o}){let[l,c]=(0,t.useState)(!1),[p,u]=(0,t.useState)(()=>Math.max(0,i.indexOf(n))),m=(0,t.useRef)(null);return(0,t.useEffect)(()=>{function e(e){m.current&&!m.current.contains(e.target)&&c(!1)}return document.addEventListener("mousedown",e),()=>document.removeEventListener("mousedown",e)},[]),(0,t.useEffect)(()=>{l&&u(Math.max(0,i.indexOf(n)))},[l,n,i]),(0,r.jsxs)("div",{className:"dd",ref:m,children:[e&&(0,r.jsx)("span",{className:"dd-label",children:e}),(0,r.jsxs)("button",{type:"button",className:`dd-trigger ${l?"open":""} ${d?"err":""}`,"aria-haspopup":"listbox","aria-expanded":l,"aria-invalid":d||void 0,onClick:()=>c(e=>!e),onKeyDown:function(e){if(!l){("Enter"===e.key||" "===e.key||"ArrowDown"===e.key)&&(e.preventDefault(),c(!0));return}"Escape"===e.key?c(!1):"ArrowDown"===e.key?(e.preventDefault(),u(e=>(e+1)%i.length)):"ArrowUp"===e.key?(e.preventDefault(),u(e=>(e-1+i.length)%i.length)):"Enter"===e.key&&(e.preventDefault(),s(i[p]),c(!1))},children:[(0,r.jsxs)("span",{className:"dd-valwrap",children:[o&&(0,r.jsx)("span",{className:"dd-ic",children:o(n)}),(0,r.jsx)("span",{className:"dd-value",children:n})]}),(0,r.jsx)(a.Icon,{name:"expand_more",size:18,className:"dd-chev"})]}),l&&(0,r.jsx)("ul",{className:"dd-menu",role:"listbox",tabIndex:-1,children:i.map((e,t)=>(0,r.jsxs)("li",{role:"option","aria-selected":e===n,className:`dd-opt ${t===p?"active":""} ${e===n?"sel":""}`,onMouseEnter:()=>u(t),onClick:()=>{s(e),c(!1)},children:[(0,r.jsxs)("span",{className:"dd-optwrap",children:[o&&(0,r.jsx)("span",{className:"dd-ic",children:o(e)}),(0,r.jsx)("span",{children:e})]}),e===n&&(0,r.jsx)(a.Icon,{name:"check",size:17,className:"dd-check"})]},e))}),(0,r.jsx)("style",{children:`
+        .dd { position: relative; }
+        .dd-label {
+          display: block; font-size: 12px; font-weight: 600; color: var(--text-2); margin-bottom: 7px;
+        }
+        .dd-trigger {
+          display: flex; align-items: center; justify-content: space-between; gap: 8px;
+          width: 100%; padding: 12px 12px 12px 14px; border-radius: var(--radius-input);
+          border: 1px solid var(--line); background: var(--surface-1);
+          font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text);
+          cursor: pointer; text-align: left;
+          transition: border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+        }
+        .dd-trigger:hover { border-color: #c4c7c5; }
+        .dd-trigger:focus-visible { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+        .dd-trigger.open { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px var(--blue-soft); }
+        .dd-trigger.err { border-color: var(--red); }
+        .dd-trigger.err.open { box-shadow: 0 0 0 3px #fce8e6; }
+        .dd-valwrap, .dd-optwrap { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+        .dd-ic { display: inline-flex; flex-shrink: 0; }
+        .dd-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .dd-trigger .dd-chev {
+          color: var(--text-3); flex-shrink: 0;
+          transition: transform .2s var(--ease), color .2s var(--ease);
+        }
+        .dd-trigger.open .dd-chev { transform: rotate(180deg); color: var(--blue); }
+
+        .dd-menu {
+          position: absolute; z-index: 30; top: calc(100% + 6px); left: 0; right: 0;
+          list-style: none; margin: 0; padding: 6px;
+          background: #fff; border: 1px solid var(--line-soft);
+          border-radius: 14px; box-shadow: var(--shadow-lg);
+          max-height: 240px; overflow-y: auto;
+          animation: dd-in .14s var(--ease);
+        }
+        @keyframes dd-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { .dd-menu { animation: none; } }
+        .dd-opt {
+          display: flex; align-items: center; justify-content: space-between; gap: 8px;
+          padding: 10px 12px; border-radius: 9px;
+          font-size: 14px; font-weight: 500; color: var(--text-2); cursor: pointer;
+        }
+        .dd-opt.active { background: var(--surface-2); color: var(--text); }
+        .dd-opt.sel { color: var(--blue); font-weight: 600; }
+        .dd-opt .dd-check { color: var(--blue); flex-shrink: 0; }
+      `})]})}],51346),e.s(["parseAmount",0,function(e){var r;let t=e.replace(/[\s  ]/g,"");if(!t||!/^[\d.,]+$/.test(t))return null;let a=[];for(let e=0;e<t.length;e++)("."===t[e]||","===t[e])&&a.push(e);if(0===a.length)return n(t);let i=a[a.length-1],s=t.slice(i+1);if(0===s.length)return n(t.slice(0,i).replace(/[.,]/g,""));let d=a.every(e=>t[e]===t[i]),o=!(3===s.length&&(1===a.length||d));if(o&&s.length>2)return null;let l=(o?t.slice(0,i):t).replace(/[.,]/g,"")||"0",c=o?a.slice(0,-1):a,p=o?t.slice(0,i):t;return(!p||(r=p,0===c.length?!/[.,]/.test(r):/^\d{1,3}([.,]\d{3})+$/.test(r)))&&/^\d+$/.test(l)?n(o?`${l}.${s}`:l):null},"sanitizeAmountInput",0,function(e){return e.replace(/[^\d.,]/g,"").slice(0,16)}],68949)},50731,e=>{"use strict";var r=e.i(9165);function t(e){return!(e instanceof r.ApiError)||"network"===e.code||"timeout"===e.code}e.s(["codeErrorText",0,function(e,r){if(t(e))return r("errors.network");if("2fa_locked"===e.code){let t;return Number.isFinite(t=Number(e.data.retry_after))&&t>0?r("errors.twoFaLockedMin",{n:Math.max(1,Math.ceil(t/60))}):r("errors.twoFaLocked")}return"invalid_2fa"===e.code?r("errors.wrongCode"):429===e.status?r("errors.rateLimited"):null},"isNetwork",0,t,"isWrongPassword",0,function(e){return e instanceof r.ApiError&&(400===e.status||401===e.status)&&("incorrect old password"===e.code||"incorrect password"===e.code)}])},60436,e=>{"use strict";var r=e.i(71645);let t='a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';e.s(["useDialogFocus",0,function(e,a,n={}){let i=(0,r.useRef)(n.onEscape),s=n.focusRef;(0,r.useEffect)(()=>{i.current=n.onEscape}),(0,r.useEffect)(()=>{if(!e)return;let r=document.activeElement instanceof HTMLElement?document.activeElement:null,n=a.current,d=s?.current??n?.querySelector(t)??null;d?.focus();let o=e=>{if("Escape"===e.key){i.current&&(e.preventDefault(),i.current());return}if("Tab"!==e.key||!a.current)return;let r=a.current.querySelectorAll(t);if(0===r.length)return;let n=r[0],s=r[r.length-1];a.current.contains(document.activeElement)?e.shiftKey&&document.activeElement===n?(e.preventDefault(),s.focus()):e.shiftKey||document.activeElement!==s||(e.preventDefault(),n.focus()):(e.preventDefault(),(e.shiftKey?s:n).focus())};return document.addEventListener("keydown",o),()=>{document.removeEventListener("keydown",o),r?.isConnected&&r.focus()}},[e,a,s])}])}]);
